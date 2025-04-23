@@ -19,6 +19,7 @@ plex = account.resource("alexandria").connect()
 
 for playlist_name in PLAYLISTS:
     playlist_file = f"{PLAYLIST_DIR}/{playlist_name}.m3u"
+    print(f"writing {playlist_file}")
     tracklist = []
     for track in plex.playlist(playlist_name):
         tracklist.append(track.locations[0])
