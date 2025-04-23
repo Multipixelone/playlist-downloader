@@ -1,10 +1,7 @@
 from plexapi.myplex import MyPlexAccount
+from os import environ
 from pathlib import Path
 
-PLAYLIST_DIR = "/home/tunnel/Music/Playlists"
-MOPIDY_DIR = "/home/tunnel/.local/share/mopidy/m3u"
-IPOD_DIR = "/home/tunnel/Music/.ipod"
-MUSIC_DIR = "/media/Data/Music"
 PLAYLISTS = {
     "00 monthly playlist! :D": 24562,
     "50 good listening & learning": 20340,
@@ -13,6 +10,8 @@ PLAYLISTS = {
     "y lastfm top all time": 0,
     "y lastfm top six months": 1,
 }
+PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
+MUSIC_DIR = environ.get("MUSIC_DIR", "/media/Data/Music")
 
 account = MyPlexAccount()
 plex = account.resource("alexandria").connect()
