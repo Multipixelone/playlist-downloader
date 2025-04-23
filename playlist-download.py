@@ -2,16 +2,16 @@ from plexapi.myplex import MyPlexAccount
 from os import environ
 from pathlib import Path
 
-PLAYLISTS = {
-    "00 monthly playlist! :D": 24562,
-    "50 good listening & learning": 20340,
-    "02 vgm study": 53423,
-    "01 amtrak": 26224,
-    "y lastfm top all time": 0,
-    "y lastfm top six months": 1,
-}
 PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
 MUSIC_DIR = environ.get("MUSIC_DIR", "/media/Data/Music")
+PLAYLISTS = [
+    "00 monthly playlist! :D",
+    "50 good listening & learning",
+    "02 vgm study",
+    "01 amtrak",
+    "y lastfm top all time",
+    "y lastfm top six months",
+]
 
 account = MyPlexAccount()
 plex = account.resource("alexandria").connect()
