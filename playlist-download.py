@@ -28,5 +28,3 @@ for playlist_name in PLAYLISTS:
             p = Path(track)
             trackpath = f"{MUSIC_DIR}/{p.parent.name}/{p.name}"
             f.write(f"{trackpath}\n")
-
-    exit()
