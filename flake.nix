@@ -13,8 +13,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       pythonPackages = pkgs.python3Packages;
       pythonModules = with pythonPackages; [
-        levenshtein
-        numpy
+        plexapi
       ];
       python = pkgs.python3.override {
         self = python;
