@@ -17,6 +17,7 @@
       ];
       version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
       playlist-download = pkgs.callPackage ./playlist-download.nix {inherit pythonModules pythonPackages version;};
+      playlist-copy = pkgs.callPackage ./playlist-copy.nix {inherit pythonModules pythonPackages version;};
       env = pkgs.mkShell {
         venvDir = "./.venv";
         buildInputs = [
@@ -31,6 +32,7 @@
     in {
       packages = {
         playlist-download = playlist-download;
+        playlist-copy = playlist-copy;
         default = self.packages.${system}.playlist-download;
       };
       devShells.default = env;
