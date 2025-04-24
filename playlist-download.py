@@ -5,9 +5,9 @@ from urllib.parse import quote
 
 PLAYLISTS = [
     "00 monthly playlist! :D",
-    "50 good listening & learning",
-    "02 vgm study",
     "01 amtrak",
+    "02 vgm study",
+    "50 good listening & learning",
     "y lastfm top all time",
     "y lastfm top six months",
 ]
