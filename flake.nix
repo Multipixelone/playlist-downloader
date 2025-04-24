@@ -21,7 +21,7 @@
       app = pkgs.python3Packages.buildPythonApplication rec {
         inherit python;
         pname = "playlist-download";
-        version = "1.0";
+        version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
         format = "other";
         src = ./.;
 
