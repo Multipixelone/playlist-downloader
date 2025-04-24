@@ -16,7 +16,7 @@
         plexapi
       ];
       version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
-      playlist-download = pkgs.callPackage ./playlist-download.nix {inherit pythonModules pythonPackages self version;};
+      playlist-download = pkgs.callPackage ./playlist-download.nix {inherit pythonModules pythonPackages version;};
       env = pkgs.mkShell {
         venvDir = "./.venv";
         buildInputs = [

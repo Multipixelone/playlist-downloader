@@ -1,7 +1,6 @@
 {
   pythonPackages,
   pythonModules,
-  self,
   version,
 }:
 pythonPackages.buildPythonApplication rec {
