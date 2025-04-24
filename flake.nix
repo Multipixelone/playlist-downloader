@@ -15,33 +15,13 @@
       pythonModules = with pythonPackages; [
         plexapi
       ];
-      python = pkgs.python3.override {
-        self = python;
-      };
-      app = pkgs.python3Packages.buildPythonApplication rec {
-        inherit python;
-        pname = "playlist-download";
-        version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
-        format = "other";
-        src = ./.;
-
-        propagatedBuildInputs = pythonModules;
-
-        dontUnpack = true;
-        doCheck = false;
-        pytestCheckHook = false;
-
-        installPhase = ''
-          install -Dm755 ${src}/playlist-download.py $out/bin/${pname}
-          sed -i '1s|^|#!/usr/bin/env python3\n|' $out/bin/${pname}
-        '';
-        meta.mainProgram = "playlist-download";
-      };
+      version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
+      playlist-download = pkgs.callPackage ./playlist-download.nix {inherit pythonModules pythonPackages self version;};
       env = pkgs.mkShell {
         venvDir = "./.venv";
         buildInputs = [
-          python
           pythonModules
+          pythonPackages.python
           pythonPackages.venvShellHook
           pkgs.autoPatchelfHook
         ];
@@ -50,7 +30,7 @@
       };
     in {
       packages = {
-        playlist-download = app;
+        playlist-download = playlist-download;
         default = self.packages.${system}.playlist-download;
       };
       devShells.default = env;
