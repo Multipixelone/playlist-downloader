@@ -10,14 +10,20 @@
     flake-utils,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
+      # use git commit as version (i don't like this impl but i'll be brave)
+      version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
       pkgs = nixpkgs.legacyPackages.${system};
+      # python definitions & modules
       pythonPackages = pkgs.python3Packages;
       pythonModules = with pythonPackages; [
         plexapi
       ];
-      version = toString (self.shortRev or self.dirtyShortRev or self.lastModified or "unknown");
+
+      # packages
       playlist-download = pkgs.callPackage ./playlist-download.nix {inherit pythonModules pythonPackages version;};
       playlist-copy = pkgs.callPackage ./playlist-copy.nix {inherit pythonModules pythonPackages version;};
+
+      # devEnv
       env = pkgs.mkShell {
         venvDir = "./.venv";
         buildInputs = [
