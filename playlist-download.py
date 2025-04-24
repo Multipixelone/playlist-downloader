@@ -24,7 +24,7 @@ for playlist_name in PLAYLISTS:
     playlist_file = Path(PLAYLIST_DIR) / file_title
     mopidy_playlist_file = Path(MOPIDY_PLAYLIST_DIR) / file_title
     ipod_playlist_file = Path(PLAYLIST_DIR) / ".ipod" / file_title
-    print(f"{playlist_file}\n {ipod_playlist_file}\n {mopidy_playlist_file}\n")
+    print(f"{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n")
     with (
         open(playlist_file, "w") as plist,
         open(mopidy_playlist_file, "w") as mlist,
