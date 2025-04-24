@@ -46,7 +46,7 @@ for playlist_name in PLAYLISTS:
             # get relative path of music (i hate this impl)
             stripped_path = Path(p.parent.parent.name) / p.parent.name / p.name
             quoted_path = quote((bytes(stripped_path)))
-            plist.write(f"{Path(MUSIC_DIR) / stripped_path.name}\n")
+            plist.write(f"{Path(MUSIC_DIR) / stripped_path}\n")
             podlist.write(f"{Path('/') / stripped_path}\n")
             mlist.write(f"local:track:{quoted_path}\n")
     print(f"wrote:\n{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n")
