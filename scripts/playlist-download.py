@@ -4,14 +4,14 @@ from pathlib import Path
 from urllib.parse import quote
 
 PLAYLISTS = [
-    "00 monthly playlist! :D",
+    "00 monthly playlist",
     "01 amtrak",
     "02 vgm study",
     "03 jazz i dig",
     "04 in da electric jungle",
     "05 apocalypse",
     "06 mortenkaisen ult",
-    "07 city pop :3",
+    "07 city pop",
     "08 breakcore vsinger",
     "14 u have to understand video game music is great",
     "50 good listening & learning",
