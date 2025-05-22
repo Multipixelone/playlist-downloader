@@ -36,7 +36,7 @@ for playlist_name in PLAYLISTS:
     playlist_file = Path(PLAYLIST_DIR) / file_title
     mopidy_playlist_file = Path(MOPIDY_PLAYLIST_DIR) / file_title
     ipod_playlist_file = Path(PLAYLIST_DIR) / ".ipod" / file_title
-    mpd_playlist_file = Path(PLAYLIST_DIR) / ".mpd" / file_title
+    mpd_playlist_file = Path(PLAYLIST_DIR) / ".mpd" / f"{playlist_name}.m3u"
     with (
         open(playlist_file, "w") as plist,
         open(mopidy_playlist_file, "w") as mlist,
