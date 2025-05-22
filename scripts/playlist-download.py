@@ -36,10 +36,12 @@ for playlist_name in PLAYLISTS:
     playlist_file = Path(PLAYLIST_DIR) / file_title
     mopidy_playlist_file = Path(MOPIDY_PLAYLIST_DIR) / file_title
     ipod_playlist_file = Path(PLAYLIST_DIR) / ".ipod" / file_title
+    mpd_playlist_file = Path(PLAYLIST_DIR) / ".mpd" / file_title
     with (
         open(playlist_file, "w") as plist,
         open(mopidy_playlist_file, "w") as mlist,
         open(ipod_playlist_file, "w") as podlist,
+        open(mpd_playlist_file, "w") as mpdlist,
     ):
         for file in plist, mlist, podlist:
             file.write("#EXTM3U\n")
@@ -50,5 +52,8 @@ for playlist_name in PLAYLISTS:
             quoted_path = quote((bytes(stripped_path)))
             plist.write(f"{Path(MUSIC_DIR) / stripped_path}\n")
             podlist.write(f"{Path('/') / stripped_path}\n")
+            mpdlist.write(f"{Path(stripped_path)}\n")
             mlist.write(f"local:track:{quoted_path}\n")
-    print(f"wrote:\n{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n")
+    print(
+        f"wrote:\n{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n{mpd_playlist_file}"
+    )
