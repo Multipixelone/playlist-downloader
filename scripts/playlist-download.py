@@ -24,7 +24,9 @@ PLAYLISTS = [
 
 PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
 MUSIC_DIR = environ.get("MUSIC_DIR", "/media/Data/Music")
-MOPIDY_PLAYLIST_DIR = environ.get("MOPIDY_PLAYLISTS", "/home/tunnel/.local/share/mopidy/m3u")
+MOPIDY_PLAYLIST_DIR = environ.get(
+    "MOPIDY_PLAYLISTS", "/home/tunnel/.local/share/mopidy/m3u"
+)
 
 account = MyPlexAccount()
 plex = account.resource("alexandria").connect()
