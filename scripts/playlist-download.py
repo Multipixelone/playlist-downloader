@@ -51,7 +51,10 @@ for playlist_name in PLAYLISTS:
             stripped_path = Path(p.parent.parent.name) / p.parent.name / p.name
             quoted_path = quote((bytes(stripped_path)))
             plist.write(f"{Path(MUSIC_DIR) / stripped_path}\n")
-            podlist.write(f"{Path('/') / stripped_path}\n")
+            # podlist.write(f"{Path('/') / stripped_path}.opus\n")
+            podlist.write(
+                f"{Path('/') / p.parent.parent.name / p.parent.name / p.stem}.opus\n"
+            )
             mpdlist.write(f"{Path(stripped_path)}\n")
             mlist.write(f"local:track:{quoted_path}\n")
     print(
