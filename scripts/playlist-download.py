@@ -53,7 +53,7 @@ for playlist_name in PLAYLISTS:
             plist.write(f"{Path(MUSIC_DIR) / stripped_path}\n")
             # podlist.write(f"{Path('/') / stripped_path}.opus\n")
             podlist.write(
-                f"{Path('/') / p.parent.parent.name / p.parent.name / p.stem}.opus\n"
+                f"{Path('/') / p.parent.parent.name / p.parent.name / p.stem}.mpc\n"
             )
             mpdlist.write(f"{Path(stripped_path)}\n")
             mlist.write(f"local:track:{quoted_path}\n")
