@@ -20,6 +20,7 @@ PLAYLISTS = [
     "vgm water",
     "y lastfm top all time",
     "y lastfm top six months",
+    "mt madness",
 ]
 
 PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
