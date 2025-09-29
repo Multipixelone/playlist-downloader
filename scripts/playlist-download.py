@@ -13,6 +13,7 @@ PLAYLISTS = [
     "06 mortenkaisen ult",
     "07 city pop",
     "08 breakcore vsinger",
+    "99 last month liked",
     "14 u have to understand video game music is great",
     "50 good listening & learning",
     "rainlist",
