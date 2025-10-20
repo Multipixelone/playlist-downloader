@@ -23,7 +23,7 @@ with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
         li = line.strip()
         if not line.startswith("#"):
             split = li.split(":")
-            stamp = split[0]
+            stamp = int(split[0])
             elapsed = int(split[1])
             len = int(split[2])
 
