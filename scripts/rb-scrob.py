@@ -10,7 +10,7 @@ IPOD_DIR = environ.get("IPOD_DIR", "/media/Data/Music")
 RB_LOG_FILE = Path(IPOD_DIR) / ".rockbox" / "playback.log"
 LOG_DIR = Path.home() / "Music" / "Rockbox"
 LOG_FILE = Path(LOG_DIR) / f"scrobbler_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-HEADER = f"#AUDIOSCROBBLER/1.1\n#TZ/UNKNOWN\n#CLIENT/Rockbox ipodvideo\n#Log file generated {datetime.now()}\n"
+HEADER = f"#AUDIOSCROBBLER/1.1\n#TZ/UNKNOWN\n#CLIENT/Rockbox ipodvideo\n"
 
 
 def threshold(length_ms: int):
