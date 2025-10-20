@@ -18,7 +18,7 @@ def threshold(length_ms: int):
 
 with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
     f.write(HEADER)
-    print(f"opening {RB_LOG_FILE} for writing...")
+    print(f"writing tracks to {LOG_FILE}")
     for line in r:
         li = line.strip()
         if not line.startswith("#"):
