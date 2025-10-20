@@ -20,6 +20,7 @@
         pythonPackages = pkgs.python3Packages;
         pythonModules = with pythonPackages; [
           plexapi
+          mutagen
         ];
 
         # packages
@@ -27,6 +28,9 @@
           inherit pythonModules pythonPackages version;
         };
         playlist-copy = pkgs.callPackage ./playlist-copy.nix {
+          inherit pythonModules pythonPackages version;
+        };
+        rb-scrob = pkgs.callPackage ./rb-scrob.nix {
           inherit pythonModules pythonPackages version;
         };
 
@@ -47,6 +51,7 @@
         packages = {
           playlist-download = playlist-download;
           playlist-copy = playlist-copy;
+          rb-scrob = rb-scrob;
           default = self.packages.${system}.playlist-download;
         };
         devShells.default = env;
