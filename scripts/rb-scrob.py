@@ -3,7 +3,6 @@ from pathlib import Path
 from datetime import datetime
 from mutagen.apev2 import APEv2
 
-PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
 # MUSIC_DIR = environ.get("MUSIC_DIR", "/media/Data/Music")
 MUSIC_DIR = "/volume1/Media/TranscodedMusic"
 IPOD_DIR = environ.get("IPOD_DIR", "/media/Data/Music")
