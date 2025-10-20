@@ -28,7 +28,9 @@ with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
             len = int(split[2])
 
             cleaned_path = split[3].removeprefix("/<HDD0>").removeprefix("/")
+            # get metadata of file in local music library
             file = APEv2(Path(MUSIC_DIR) / cleaned_path)
+            # track listened or not based on threshold
             rating = "L" if elapsed >= threshold(len) else "S"
 
             f.write(
