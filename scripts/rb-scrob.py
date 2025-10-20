@@ -36,3 +36,6 @@ with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
             f.write(
                 f"{file['artist']}\t{file['album']}\t{file['title']}\t{file['track']}\t{len // 1000}\t{rating}\t{stamp}\n"
             )
+            print(
+                f"{file['title']} logged as {rating} at {datetime.fromtimestamp(stamp)}"
+            )
