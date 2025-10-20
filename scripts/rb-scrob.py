@@ -1,5 +1,6 @@
 from os import environ
 from pathlib import Path
+import shutil
 from datetime import datetime
 from mutagen.apev2 import APEv2
 
@@ -18,7 +19,6 @@ def threshold(length_ms: int):
 
 with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
     f.write(HEADER)
-    print(f"writing tracks to {LOG_FILE}")
     for line in r:
         li = line.strip()
         if not line.startswith("#"):
@@ -36,6 +36,5 @@ with open(RB_LOG_FILE) as r, open(LOG_FILE, "w") as f:
             f.write(
                 f"{file['artist']}\t{file['album']}\t{file['title']}\t{file['track']}\t{len // 1000}\t{rating}\t{stamp}\n"
             )
-            print(
-                f"{file['title']} logged as {rating} at {datetime.fromtimestamp(stamp)}"
-            )
+    print(LOG_FILE)
+    shutil.move(RB_LOG_FILE, Path(IPOD_DIR) / ".rockbox" / "playback_old.log")
