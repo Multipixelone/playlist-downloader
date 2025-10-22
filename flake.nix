@@ -21,6 +21,7 @@
         pythonModules = with pythonPackages; [
           plexapi
           mutagen
+          mediafile
         ];
 
         # packages
