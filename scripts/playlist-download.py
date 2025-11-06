@@ -22,6 +22,7 @@ PLAYLISTS = [
     "15 bike",
     "16 edgy",
     "17 mt madness",
+    "18 vgm covers :3",
     "30 rainlist",
     "31 snowy vgm",
     "32 vgm water",
@@ -31,11 +32,14 @@ PLAYLISTS = [
     "y lastfm top six months",
     "mazda bitch strip",
     "the cat in the hat",
+    "seussical tech",
 ]
 
 PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
 MUSIC_DIR = environ.get("MUSIC_DIR", "/media/Data/Music")
-MOPIDY_PLAYLIST_DIR = environ.get("MOPIDY_PLAYLISTS", "/home/tunnel/.local/share/mopidy/m3u")
+MOPIDY_PLAYLIST_DIR = environ.get(
+    "MOPIDY_PLAYLISTS", "/home/tunnel/.local/share/mopidy/m3u"
+)
 
 account = MyPlexAccount()
 plex = account.resource("alexandria").connect()
@@ -61,7 +65,11 @@ for playlist_name in PLAYLISTS:
             quoted_path = quote((bytes(stripped_path)))
             plist.write(f"{Path(MUSIC_DIR) / stripped_path}\n")
             # podlist.write(f"{Path('/') / stripped_path}.opus\n")
-            podlist.write(f"{Path('/') / p.parent.parent.name / p.parent.name / p.stem}.mpc\n")
+            podlist.write(
+                f"{Path('/') / p.parent.parent.name / p.parent.name / p.stem}.mpc\n"
+            )
             mpdlist.write(f"{Path(stripped_path)}\n")
             mlist.write(f"local:track:{quoted_path}\n")
-    print(f"wrote:\n{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n{mpd_playlist_file}")
+    print(
+        f"wrote:\n{playlist_file}\n{ipod_playlist_file}\n{mopidy_playlist_file}\n{mpd_playlist_file}"
+    )
