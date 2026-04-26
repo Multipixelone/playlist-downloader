@@ -1,0 +1,91 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    name: check, discover packages
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      packages: ${{ steps.discover.outputs.packages }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Nix and Attic
+        uses: ./.github/actions/setup-nix-attic
+        with:
+          attic-key: ${{ secrets.ATTIC_KEY }}
+
+      - name: nix flake check
+        run: nix flake check --print-build-logs
+
+      - name: Discover packages
+        id: discover
+        run: |
+          packages=$(nix eval --json '.#packages.x86_64-linux' \
+            --apply 'pkgs: builtins.filter (n: n != "default") (builtins.attrNames pkgs)')
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: build ${{ matrix.package }} (${{ matrix.system }})
+    needs: discover
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.discover.outputs.packages) }}
+        system: [x86_64-linux, aarch64-linux]
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Setup Nix and Attic
+        uses: ./.github/actions/setup-nix-attic
+        with:
+          attic-key: ${{ secrets.ATTIC_KEY }}
+
+      - name: Build ${{ matrix.package }}
+        run: nix build ".#packages.${{ matrix.system }}.${{ matrix.package }}" --print-build-logs
+
+      - name: Push closure to Attic
+        if: |
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false) ||
+          github.event_name == 'workflow_dispatch'
+        run: attic push system ./result
+
+  ci-success:
+    name: CI success
+    if: always()
+    needs: [discover, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify all required jobs succeeded
+        run: |
+          if [[ "${{ needs.discover.result }}" != "success" ]]; then
+            echo "discover job did not succeed: ${{ needs.discover.result }}"
+            exit 1
+          fi
+          if [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "build matrix did not succeed: ${{ needs.build.result }}"
+            exit 1
+          fi
