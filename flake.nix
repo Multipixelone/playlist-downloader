@@ -25,14 +25,23 @@
         ];
 
         # packages
-        playlist-download = pkgs.callPackage ./playlist-download.nix {
+        mkScriptSrc =
+          script:
+          pkgs.lib.fileset.toSource {
+            root = ./.;
+            fileset = script;
+          };
+        playlist-download = pkgs.callPackage ./pkgs/playlist-download.nix {
           inherit pythonModules pythonPackages version;
+          src = mkScriptSrc ./scripts/playlist-download.py;
         };
-        playlist-copy = pkgs.callPackage ./playlist-copy.nix {
+        playlist-copy = pkgs.callPackage ./pkgs/playlist-copy.nix {
           inherit pythonModules pythonPackages version;
+          src = mkScriptSrc ./scripts/playlist-copy.py;
         };
-        rb-scrob = pkgs.callPackage ./rb-scrob.nix {
+        rb-scrob = pkgs.callPackage ./pkgs/rb-scrob.nix {
           inherit pythonModules pythonPackages version;
+          src = mkScriptSrc ./scripts/rb-scrob.py;
         };
 
         # devEnv
