@@ -3,12 +3,15 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
+  inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs =
     {
       self,
       nixpkgs,
       flake-utils,
+      treefmt-nix,
     }:
     flake-utils.lib.eachDefaultSystem (
       system:
@@ -60,6 +63,16 @@
           name = "playlist";
           DIRENV_LOG_FORMAT = "";
         };
+
+        # formatting
+        treefmtEval = treefmt-nix.lib.evalModule pkgs {
+          projectRootFile = "flake.nix";
+          programs.nixfmt = {
+            enable = true;
+            package = pkgs.nixfmt-rfc-style;
+          };
+          programs.ruff-format.enable = true;
+        };
       in
       {
         packages = {
@@ -70,6 +83,8 @@
           default = self.packages.${system}.playlist-download;
         };
         devShells.default = env;
+        formatter = treefmtEval.config.build.wrapper;
+        checks.formatting = treefmtEval.config.build.check self;
       }
     );
 }
