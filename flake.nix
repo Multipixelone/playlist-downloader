@@ -43,6 +43,10 @@
           inherit pythonModules pythonPackages version;
           src = mkScriptSrc ./scripts/rb-scrob.py;
         };
+        md5-flac = pkgs.callPackage ./pkgs/md5-flac.nix {
+          inherit pythonModules pythonPackages version;
+          src = mkScriptSrc ./scripts/md5_flac.py;
+        };
 
         # devEnv
         env = pkgs.mkShell {
@@ -62,6 +66,7 @@
           playlist-download = playlist-download;
           playlist-copy = playlist-copy;
           rb-scrob = rb-scrob;
+          md5-flac = md5-flac;
           default = self.packages.${system}.playlist-download;
         };
         devShells.default = env;
