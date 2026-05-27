@@ -22,7 +22,7 @@ PLAYLISTS = [
     "15 bike",
     "16 edgy",
     "17 mt madness",
-    "18 vgm covers :3",
+    "18 vgm covers",
     "30 rainlist",
     "31 snowy vgm",
     "32 vgm water",
@@ -33,6 +33,7 @@ PLAYLISTS = [
     "mazda bitch strip",
     "the cat in the hat",
     "seussical tech",
+    "mackin mabel",
 ]
 
 PLAYLIST_DIR = environ.get("PLAYLIST_DIR", "/home/tunnel/Music/Playlists")
